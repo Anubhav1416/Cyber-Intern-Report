@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Security Risk Assessment - Open Ports</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    h1, h2 {
+      color: #2c3e50;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      padding: 12px;
+      border: 1px solid #ccc;
+    }
+    th {
+      background-color: #2c3e50;
+      color: white;
+      text-align: left;
+    }
+    .risk {
+      font-weight: bold;
+    }
+    .critical {
+      color: #c0392b;
+    }
+    .warning {
+      color: #e67e22;
+    }
+    .info {
+      color: #2980b9;
+    }
+    ul {
+      margin-top: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <h1> Task 1:  Scan Your Local Network for Open Ports </h1>
+
+ <p>This report presents a security risk assessment of open ports identified across devices in a local network range (192.168.1.0/24) using Nmap scans.</p>
+
+  <h2>Ports ,Services and Security Risk Based Overview</h2>
+  <h3><u>Nmap scan report for 192.168.1.1 </u><h3/>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Port</th>
+        <th>Protocol</th>
+        <th>Service</th>
+        <th class="risk">Security Risk</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>21</td>
+        <td>TCP</td>
+        <td>FTP</td>
+        <td class="warning">Transmits data in plain text. Vulnerable to sniffing and brute-force attacks. Replace with SFTP or disable.</td>
+      </tr>
+      <tr>
+        <td>22</td>
+        <td>TCP</td>
+        <td>SSH</td>
+        <td class="warning">Brute-force attack target. Should use key-based authentication and monitoring.</td>
+      </tr>
+      <tr>
+        <td>23</td>
+        <td>TCP</td>
+        <td>Telnet</td>
+        <td class="critical"> Targeted by brute-force and dictionary attacks. If weak passwords or default credentials are used, can be compromised.</td>
+      </tr>
+      <tr>
+        <td>53</td>
+        <td>TCP</td>
+        <td>DNS</td>
+        <td class="warning"> Can allow DNS zone transfers if misconfigured, leaking internal network details.</td>
+      </tr>
+      <tr>
+        <td>80</td>
+        <td>TCP</td>
+        <td>HTTP</td>
+        <td class="warning"> No encryption; allows interception of data (MITM). Can be exploited via vulnerable web apps. Redirect to HTTPS.</td>
+      </tr>
+      <tr>
+        <td>139</td>
+        <td>TCP</td>
+        <td>NetBIOS-SSN</td>
+        <td class="critical">Vulnerable to NetBIOS spoofing and session hijacking. Often exploited by malware.</td>
+      </tr>
+      <tr>
+        <td>161</td>
+        <td>TCP</td>
+        <td>SNMP</td>
+        <td class="warning">Exposes device info if default credentials are used. Should use SNMPv3 with encryption.</td>
+      </tr>
+      <tr>
+        <td>443</td>
+        <td>TCP</td>
+        <td>HTTPS</td>
+        <td class="warning">Encrypted, but vulnerable if using outdated TLS versions or misconfigured certificates.</td>
+      </tr>
+      <tr>
+        <td>445</td>
+        <td>TCP</td>
+        <td>SMB</td>
+        <td class="critical">Used in Windows file sharing. Vulnerable to major exploits like EternalBlue.</td>
+      </tr>
+      <tr>
+        <td>3517</td>
+        <td>TCP</td>
+        <td>802.11 IAPP</td>
+        <td class="warning">Rarely used. May be exposed by misconfigured wireless devices.  (e.g., AP controller).</td>
+      </tr>
+      <tr>
+        <td>8082</td>
+        <td>TCP</td>
+        <td>BlackICE Alerts / Custom App</td>
+        <td class="warning">Legacy or unknown service. Could expose web admin panels or logs.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  </ul>
+
+<h3><u>Nmap scan report for 192.168.1.6</u></h3>
+
+ <div class="box">
+    <div class="line host-up">✔ Host is up (0.0055s latency)</div>
+    <div class="line">All 1000 scanned ports on <strong>192.168.1.6</strong> are in ignored states.</div>
+    <div class="line closed-ports">Not shown: 1000 closed TCP ports (reset)</div>
+  </div>
+
+
+
+<h3><u>Nmap scan report for 192.168.1.7</u></h3>
+<table>
+  <thead>
+    <tr>
+      <th>Port</th>
+      <th>Protocol</th>
+      <th>Common Service</th>
+      <th>Security Risk</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>6881</td>
+      <td>TCP</td>
+      <td>BitTorrent (P2P)</td>
+      <td>
+        <ul>
+          <li><strong>Malware Distribution:</strong> BitTorrent traffic may include pirated or infected content.</li>
+          <li><strong>Legal Liability:</strong> Illegal file sharing can result in copyright violations or regulatory fines.</li>
+          <li><strong>Bandwidth Saturation:</strong> Can consume excessive bandwidth, impacting performance of critical systems.</li>
+          <li><strong>Network Obfuscation:</strong> P2P traffic can bypass traditional proxy or monitoring systems.</li>
+          <li><strong>DDoS Involvement:</strong> Nodes can be abused for Distributed Denial-of-Service attacks.</li>
+          <li><strong>Botnet Recruitment:</strong> Malware using P2P protocols (like Peerbot or ZeroAccess) may use this port for C2 communication.</li>
+          <li><strong>Hidden Services:</strong> Port 6881 can be used by malicious services masked as BitTorrent traffic.</li>
+          <li><strong>Firewall Evasion:</strong> Because it's often allowed for home use, attackers may exploit it to exfiltrate data.</li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3><u>Nmap scan report for 192.168.1.9</u></h3>
+ <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8f9fa;
+      color: #333;
+      margin: 40px;
+    }
+    .box {
+      background-color: #e9eff5;
+      border-left: 6px solid #007acc;
+      padding: 20px 30px;
+      max-width: 600px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    }
+    .line {
+      margin: 10px 0;
+      font-size: 1.1rem;
+    }
+    .host-up {
+      color: #2e7d32;
+      font-weight: bold;
+    }
+    .closed-ports {
+      color: #b71c1c;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="box">
+    <div class="line host-up">✔ Host is up (0.0055s latency)</div>
+    <div class="line">All 1000 scanned ports on <strong>192.168.1.9</strong> are in ignored states.</div>
+    <div class="line closed-ports">Not shown: 1000 closed TCP ports (reset)</div>
+  </div>
+
+
+<h3><u>Nmap scan report for 192.168.1.12</u></h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Port</th>
+      <th>Protocol</th>
+      <th>Common Service</th>
+      <th>Security Risk</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>8009</td>
+      <td>TCP</td>
+      <td>Apache JServ Protocol (AJP)</td>
+      <td>
+        <ul>
+          <li><strong>Ghostcat (CVE-2020-1938):</strong> Remote file inclusion vulnerability allowing reading server files.</li>
+          <li><strong>Unauthenticated access:</strong> AJP assumes trusted internal use, risking unauthorized access if exposed.</li>
+          <li><strong>File read/write:</strong> Potential for remote file access or uploads if misconfigured.</li>
+          <li><strong>Internal request forwarding:</strong> Can bypass firewalls or security controls.</li>
+          <li><strong>Potential for Remote Code Execution:</strong> When combined with other vulnerabilities.</li>
+          <li><strong>Lack of encryption:</strong> Traffic is unencrypted by default, risking interception.</li>
+          <li><strong>Often overlooked:</strong> Rarely monitored, making it a stealthy attack vector.</li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+</body>
+</html>
