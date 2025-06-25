@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 2: Analyze a Phishing Email Sample</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            color: #333;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        .email-sample {
+            background-color: #f9f9f9;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .analysis-section {
+            background-color: #e8f4f8;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .red-flag {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        .note {
+            font-style: italic;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+    <h1>Task 2: Analyze a Phishing Email Sample</h1>
+    
+    <h2>1. Sample Phishing Email</h2>
+    <div class="email-sample">
+        <p><strong>Subject:</strong> Action Required: Update Your VPN Credentials Immediately</p>
+        <p><strong>From:</strong> it-support@yourcompany.verifyportal.com</p>
+        <div>
+            <p>Dear Employee,</p>
+            <p>Our records indicate that your VPN credentials are due for a mandatory security update. Failure to update your credentials within <strong>24 hours</strong> will result in restricted access to corporate resources.</p>
+            <p><strong>Click here to update your credentials:</strong> <a href="#">https://vpn-yourcompany.com/update</a></p>
+            <p>For security reasons, this link will expire in 24 hours.</p>
+            <p>Thank you,<br>
+            IT Support Team<br>
+            YourCompany</p>
+        </div>
+    </div>
+
+    <h2>2. Examine Sender's Email Address for Spoofing</h2>
+    <div class="analysis-section">
+        <p><span class="red-flag">Spoofing Indicator:</span> The sender's domain (<code>yourcompany.verifyportal.com</code>) is not the legitimate domain of the organization (e.g., <code>@yourcompany.com</code>).</p>
+        <p><strong>Tactic:</strong> Attackers often use subdomains or slight misspellings to mimic legitimate addresses.</p>
+    </div>
+
+    <h2>3. Check Email Headers for Discrepancies</h2>
+    <div class="analysis-section">
+        <p><em>(Hypothetical analysis using an online header analyzer like MXToolbox)</em></p>
+        <p><span class="red-flag">Discrepancies Found:</span></p>
+        <ul>
+            <li><code>From:</code> field shows <code>it-support@yourcompany.verifyportal.com</code>, but the <code>Return-Path:</code> may point to a different domain (e.g., <code>bounce@malicious-server.com</code>).</li>
+            <li>Originating IP address may trace to an unrelated location (e.g., a cloud server in a foreign country).</li>
+        </ul>
+    </div>
+
+    <h2>4. Identify Suspicious Links or Attachments</h2>
+    <div class="analysis-section">
+        <p><span class="red-flag">Suspicious Link:</span></p>
+        <ul>
+            <li>Displayed URL: <code>https://vpn-yourcompany.com/update</code></li>
+            <li>Actual URL (on hover): <code>https://malicious-site.com/phish-vpn</code></li>
+            <li><strong>Red Flag:</strong> Mismatch between displayed and actual URLs.</li>
+        </ul>
+        <p><span class="red-flag">Attachment Analysis:</span> None in this sample, but real phishing emails might include malicious files like <code>VPN_Update.exe</code> or <code>Credentials_Form.pdf</code>.</p>
+    </div>
+
+    <h2>5. Urgent or Threatening Language</h2>
+    <div class="analysis-section">
+        <p><span class="red-flag">Examples in Email:</span></p>
+        <ul>
+            <li>"Failure to update your credentials within <strong>24 hours</strong> will result in restricted access."</li>
+            <li>"For security reasons, this link will expire in 24 hours."</li>
+        </ul>
+        <p><strong>Goal:</strong> Creates panic to bypass rational scrutiny.</p>
+    </div>
+
+    <h2>6. Mismatched URLs</h2>
+    <div class="analysis-section">
+        <p><span class="red-flag">Technique:</span> Hyperlinks disguise malicious destinations.</p>
+        <p>Example: The link text (<code>vpn-yourcompany.com</code>) appears legitimate but redirects to <code>malicious-site.com</code>.</p>
+    </div>
+
+    <h2>7. Verify Presence of Spelling or Grammar Errors</h2>
+    <div class="analysis-section">
+        <p><span class="red-flag">In This Sample:</span> None (well-crafted phishing emails may avoid errors).</p>
+        <p><strong>Common Errors in Real Attacks:</strong></p>
+        <ul>
+            <li>Misspellings (e.g., "spe ling" instead of "spelling").</li>
+            <li>Awkward phrasing (e.g., "Kindly to update your account").</li>
+        </ul>
+    </div>
+
+    <h2>8. Summary of Phishing Traits</h2>
+    <div class="analysis-section">
+        <ul>
+            <li><span class="red-flag">Spoofed Sender:</span> Fake domain (<code>verifyportal.com</code>).</li>
+            <li><span class="red-flag">Urgent Language:</span> Threats of account suspension.</li>
+            <li><span class="red-flag">Mismatched URLs:</span> Hidden malicious link.</li>
+            <li><span class="red-flag">Header Discrepancies:</span> Inconsistent <code>From</code> and <code>Return-Path</code>.</li>
+            <li><span class="red-flag">Lack of Personalization:</span> Generic greeting ("Dear Employee").</li>
+        </ul>
+    </div>
+
+
+    </div>
+</body>
+</html>
